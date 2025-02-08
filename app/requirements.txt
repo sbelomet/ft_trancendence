@@ -1,0 +1,27 @@
+Django
+daphne
+gunicorn
+psycopg2-binary
+channels
+channels_redis
+websockets
+jsonschema
+pytest
+pytest-django
+pytest-asyncio
+django-environ #for env variables in settings
+python-dotenv
+Pillow
+djangorestframework
+djangorestframework-simplejwt
+django-oauth-toolkit
+django-filter
+django-extensions
+django-cors-headers
+pyotp
+redis
+#django-cron
+celery
+django-celery-beat
+watchdog #for auto restart when a file is modified
+#authlib

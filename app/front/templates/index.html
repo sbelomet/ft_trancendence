@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8"/>
+        <title>Main</title>
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+        <!-- <script src="{% static 'front/front_index.js' %}"></script> -->
+    </head>
+    <body>
+        <header>
+           {% include 'navbar.html' %}
+        </header>
+        <div id="content" class="mt-2">
+            {% block content %}{% endblock %}
+        </div>
+        <footer>
+            <!-- include footer component -->
+        </footer>
+    </body>
+</html>

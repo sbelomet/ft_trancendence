@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+	{{ profile_id.username|default:"Guest" }}
+{% endblock title %}
+
+{% block content %}
+	{% include "fragments/profile_frag.html" %}
+{% endblock content %}

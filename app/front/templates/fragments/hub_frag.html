@@ -1,0 +1,185 @@
+{% load static %}
+<div class="container-fluid fill_div_v2 pt-4 px-5">
+    <div class="row align-items-center text-center mb-4">
+        <div class="mt-1 col-md-4">
+            <button id="create_game_btn" class="btn btn-bd-primary" data-bs-toggle="offcanvas" data-bs-target="#createGameCanvas">Create a Game</button>
+        </div>
+        <div class="mt-1 col-md-4">
+            <button id="create_tournament_btn" class="btn btn-bd-primary" data-bs-toggle="offcanvas" data-bs-target="#createTournamentCanvas">Create a Tournament</button>
+        </div>
+        <div class="mt-1 col-md-4">
+            <button id="player_ranking_btn" class="btn btn-bd-primary" data-bs-toggle="offcanvas" data-bs-target="#createRankingCanvas">
+                Ranking
+            </button>
+        </div>
+    </div>
+
+    <div class="row gy-4">
+        <div class="col-md-4">
+            <h4 class="text-center">Scheduled Games</h4>
+            <ul id="scheduled_games_list" class="list-group scrollable-container">
+
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h4 class="text-center">Scheduled Tournaments</h4>
+            <ul id="scheduled_tournaments_list" class="list-group scrollable-container">
+
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h4 class="text-center">Statistics</h4>
+            <ul id="statistics_list" class="list-group">
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-lg-none mt-2 text-center">
+        <button class="btn btn-bd-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHistorical" aria-controls="offcanvasHistorical">Show History</button>
+    </div>
+
+    <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasHistorical" aria-labelledby="offcanvasResponsiveLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasHistorical" aria-label="Close"></button>
+        </div>
+        <div id="historical_wrapper" class="row offcanvas-body mt-2">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <h4 class="text-center">Match History</h4>
+                    <ul id="match_history_list" class="list-group scrollable-container m-0">
+                        
+                    </ul>
+                </div>
+                <div id="tournament_history_wrap" class="col-lg-6 col-sm-12">
+                    <h4 class="text-center">Tournament History</h4>
+                    <ul id="tournament_history_list" class="list-group scrollable-container m-0">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-backdrop="static" tabindex="-1" id="createGameCanvas" aria-labelledby="createGameCanvasLabel">
+    <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="createGameCanvasLabel">Create a game</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body d-flex justify-content-center align-items-center">
+        <div class="card w-75">
+            <form id="create_game_form">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="game_name" class="form-label">Game's name</label>
+                        <input type="text" class="form-control" id="game_name" placeholder="Enter the name of your game" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="game_type" class="form-label">Type of game</label>
+                        <select class="form-select" id="game_type" required>
+                            <option value="" selected disabled>Select...</option>
+                            <option value="local" selected>Local</option>
+                            <option value="remote">Remote</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="game_rounds" class="form-label">Rounds needed</label>
+                        <input type="number" class="form-control" id="game_rounds" min="1" max="20" value="2" placeholder="Enter the number of rounds" required>
+                    </div>
+                    <div class="mt-2 mb-2 text-white text-center">
+                        <span class="p-2 visually-hidden" id="createGameSpan"></span>
+                    </div>
+                </div>
+                <div class="card-footer text-center text-body-secondary">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-backdrop="static" tabindex="-1" id="createTournamentCanvas" aria-labelledby="createTournamentLabel">
+    <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="createTournamentLabel">Create a tournament</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body d-flex justify-content-center align-items-center">
+        <div class="card w-75">
+            <form id="create_tournament_form">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="tournament_name" class="form-label">Tournament's name</label>
+                        <input type="text" class="form-control" id="tournament_name" placeholder="Enter the name of your tournament" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tournament_description" class="form-label">Description</label>
+                        <textarea class="form-control" id="tournament_description" rows="4" placeholder="Optional description."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="max_player" class="form-label">Max number of players</label>
+                        <input type="number" class="form-control" id="max_player" min="3" max="20" value="4" placeholder="Enter the maximum number of participants." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tournament_start_interval" class="form-label">Starts in</label>
+                        <select class="form-select" id="tournament_start_interval" required>
+                            <option value="1">1 minute</option>
+                            <option value="2">2 minutes</option>
+                            <option value="3">3 minutes</option>
+                            <option value="4">4 minutes</option>
+                            <option value="5">5 minutes</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 mb-2 text-white text-center">
+                        <span class="p-2 visually-hidden" id="createTournamentSpan"></span>
+                    </div>
+                </div>
+                <div class="card-footer text-center text-body-secondary">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-scroll="false" data-bs-backdrop="static" tabindex="-1" id="createRankingCanvas" aria-labelledby="createRankingLabel">
+    <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="createRankingLabel">Ranking</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body">   
+        <div id="rank_log_player" class="text-center fs-1 bg-light rounded mb-1 border border-dark"></div>
+        <ul id="ranking_list" class="list-group w-100">
+
+        </ul>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-scroll="false" data-bs-backdrop="static" tabindex="-1" id="createGameInvitationCanvas" aria-labelledby="gameInvitationLabel">
+    <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="gameInvitationLabel">Invite a friend</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body">
+        <ul id="friends_list_game" class="list-group border border-dark">
+            
+        </ul>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-backdrop="static" tabindex="-1" id="createInvitationCanvas" aria-labelledby="InvitationCanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="InvitationCanvasLabel">Invite your friends</h5>
+      <button id="tourney-close-btn" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body">
+        <ul id="friends_list" class="list-group border border-dark">
+            
+        </ul>
+        <div class="bg-light border text-center border-dark rounded m-1 p-1">
+            <button id="withdraw_tournament_btn" class="btn btn-bd-primary">Withdraw</button>
+        </div>
+    </div>
+</div>

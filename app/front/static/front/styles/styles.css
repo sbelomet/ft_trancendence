@@ -1,0 +1,299 @@
+:root {
+    --bd-violet-bg: #6f42c1; /* Couleur de fond principale */
+    --bd-violet-rgb: 111, 66, 193; /* Version RGB pour les ombres */
+    --bd-violet-dark: #53278f; /* Variante plus foncée pour les contrastes */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.dropdown-menu {
+    --bs-dropdown-min-width: 8rem;
+}
+
+.toast {
+	--bs-toast-spacing: 0.5rem;
+}
+
+#content {
+    min-height: calc(100vh - (72px + 63.33px));
+}
+
+.fill_div {
+    height: calc(100vh - (72px + 63.33px));
+}
+
+.fill_div_v2 {
+    min-height: calc(100vh - (72px + 63.33px));
+    padding-bottom: 5rem;
+}
+
+.fill_footer {
+    height: 63.33px;
+}
+
+#main_title {
+    rotate: 5deg;
+	font-size: 4.2rem;
+	animation: flicker 1.5s infinite alternate;  
+}
+
+.neonText {
+	color: #fff;
+	text-shadow:
+	0 0 7px #fff,
+	0 0 10px #fff,
+	0 0 21px #fff,
+	0 0 42px #0fa,
+	0 0 82px #0fa,
+	0 0 92px #0fa,
+	0 0 102px #0fa,
+	0 0 151px #0fa;
+}
+
+/* Flickering animation */
+@keyframes flicker {
+	0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+	text-shadow:
+	0 0 4px #fff,
+	0 0 11px #fff,
+	0 0 19px #fff,
+	0 0 40px #0fa,
+	0 0 80px #0fa,
+	0 0 90px #0fa,
+	0 0 100px #0fa,
+	0 0 150px #0fa;
+
+	}
+
+	20%, 24%, 55% {        
+	text-shadow: none;
+	}    
+}
+
+.scrollable-container {
+    max-height: 35rem; /* Hauteur maximale */
+    overflow-y: auto; /* Permet le défilement vertical */
+    border: 1px solid var(--bd-violet-bg); /* Bordure extérieure violette */
+    padding: 10px;  /*Espacement interne */
+    border-radius: 5px; /* Coins arrondis */
+    /* overflow: hidden; */
+    /*background-color: #f9f9f9; /* Couleur de fond légère */
+}
+
+/* Styliser les lignes de démarcation entre les items */
+.list-group-item {
+    border-color: var(--bd-violet-bg) !important; /* Couleur de la ligne de séparation */
+    border-width: 1px; /* Épaisseur de la ligne */
+    position: relative;
+    border-style: solid; /* Style de la bordure */
+}
+
+.list-group-item strong {
+    font-weight: bold;
+    color: var(--bd-violet-bg)
+}
+
+/* Supprimer les bordures entre les éléments si nécessaire */
+.list-group-item:not(:last-child) {
+    border-bottom: 1px solid var(--bd-violet-bg); /* Lignes de séparation violettes entre les items */
+}
+
+/* Styliser la scrollbar */
+.scrollable-container::-webkit-scrollbar {
+    width: 10px; /* Largeur de la scrollbar */
+    background: #f9f9f9; /* Fond de la zone de scroll */
+    border-radius: 5px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+    background-color: var(--bd-violet-bg); /* Couleur de la barre */
+    border-radius: 5px; /* Arrondir la barre */
+    border: 2px solid #f9f9f9; /* Bordure autour de la barre */
+    /* overflow: hidden; */
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+    background: #eaeaea; /* Couleur du fond de la piste de défilement */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.scrollable-container::-webkit-scrollbar-corner {
+    background: transparent; /* Assurez-vous que le coin de la scrollbar est invisible */
+}
+
+.scrollable-container-wrapper {
+    overflow: hidden;
+    border-radius: 5px; /* Arrondit les coins du conteneur parent */
+}
+
+
+/* Alignement des lignes si besoin */
+.row.align-items-start {
+    align-items: start;
+}
+
+/* Boutons */
+.btn_custom {
+    height: 100%; /* Garde la même hauteur pour tous les boutons */
+}
+
+.btn-bd-primary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white); /* Texte blanc */
+    --bs-btn-bg: var(--bd-violet-bg); /* Fond violet */
+    --bs-btn-border-color: var(--bd-violet-bg); /* Bordure violette */
+    --bs-btn-hover-color: var(--bs-white); /* Texte reste blanc au survol */
+    --bs-btn-hover-bg: var(--bd-violet-dark); /* Fond devient plus foncé au survol */
+    --bs-btn-hover-border-color: var(--bd-violet-dark); /* Bordure suit le fond */
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb); /* Ombre légère pour le focus */
+    --bs-btn-active-color: var(--bs-white);
+    --bs-btn-active-bg: var(--bd-violet-dark); /* Fond plus foncé lorsqu'activé */
+    --bs-btn-active-border-color: var(--bd-violet-dark);
+}
+
+/* Effet de transition pour un survol fluide */
+.btn-bd-primary {
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.action-btn {
+    position: absolute;
+    top: 5px; /* Distance réduite depuis le haut */
+    right: 5px; /* Distance réduite depuis la droite */
+    z-index: 10; /* Assure que le bouton reste au-dessus du contenu */
+    padding: 3px 8px; /* Taille réduite pour un effet badge */
+    font-size: 0.75rem; /* Petite taille de police */
+    background-color: var(--bd-violet-bg); /* Couleur de fond */
+    color: white; /* Texte blanc */
+    border: none; /* Supprime les bordures */
+    border-radius: 15px; /* Coins très arrondis pour un effet badge */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Effet fluide */
+    text-align: center; /* Centrage du texte */
+    line-height: 1.5; /* Alignement vertical harmonieux */
+    height: auto; /* Ajuste automatiquement la hauteur */
+}
+
+/* Effet au survol */
+.action-btn:hover {
+    background-color: var(--bd-violet-dark); /* Couleur plus foncée */
+    transform: scale(1.05); /* Légère mise en avant */
+}
+
+.search-container {
+    flex: 1;
+    max-width: 300px;
+}
+
+#search-results:empty {
+    display: none;
+}
+
+#search-results {
+    max-height: 200px; /* Limits height for scrollable content */
+    overflow-y: auto; /* Enables scrolling if results overflow */
+    border: 1px solid #ccc; /* Adds a visible border for clarity */
+    background-color: white; /* Makes the background visible */
+    position: absolute; /* Ensures it stays positioned relative to the search bar */
+    bottom: 100%; /* Moves the container above the search bar */
+    left: 0;
+    width: 100%; /* Matches the search bar's width */
+    z-index: 1050; /* Keeps it above other elements */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+.list-group-item.search-result-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.list-group-item.search-result-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Chat */
+#timestamp {
+	visibility: hidden;
+}
+
+#message-content:hover {
+	background-color: rgb(240, 240, 240);
+}
+
+#message-content:hover #timestamp {
+	visibility: visible;
+}
+
+#first-message:hover {
+	background-color: rgb(240, 240, 240);
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    5% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulsate {
+    animation: pulsate 1s infinite;
+}
+
+/* Center and style the container */
+#oauth_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Style the form */
+#oauth_form {
+    text-align: center;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the button */
+.btn-purple {
+    background-color: var(--bd-violet-bg);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.btn-purple:hover {
+    background-color: var(--bd-violet-dark);
+}
+
+/* Breakpoints */
+
+@media only screen and (min-width: 992px) {
+    #match_history_list {
+        margin-top: 1rem;
+    }
+}

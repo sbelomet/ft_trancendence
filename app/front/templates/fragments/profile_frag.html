@@ -1,0 +1,136 @@
+{% load static %}
+<div class="container-fluid fill_div_v2">
+    <div class="container pt-5">
+        <div class="row align-items-center text-center pb-4">
+            <div class="col-12">
+                <div class="pb-3">
+                    <img id="profile_avatar" src="{{ profile_id.avatar.url }}" alt="Avatar"
+                        class="rounded-circle border border-secondary"
+                        style="width: 200px; height: 200px; object-fit: cover;">
+                </div>
+                <h1 id="profile_name" class="mb-1">{{ profile_id.username }}</h1>
+                {% if profile_id.is_online %}
+                    <p id="profile_status" style="color: green;">Online</p>
+                {% else %}
+                    <p id="profile_status" class="text-muted">Offline</p>
+                {% endif %}
+                <p id="profile_nickname" class="text-dark">
+                    Nickname: {{ profile_id.nickname }}
+                </p>
+                <div class="mt-3">
+                    <button id="player_ranking_btn" class="btn btn-bd-primary" data-bs-toggle="offcanvas" data-bs-target="#createRankingCanvas">
+                        Ranking
+                    </button>
+                    <button id="player_friends_btn" class="btn btn-bd-primary" data-bs-toggle="offcanvas" data-bs-target="#createFriendsCanvas" style="display: none;">
+                        View Friends
+                    </button>
+                    <button id="view_blocked_btn" class="btn btn-bd-primary" data-bs-toggle="offcanvas" data-bs-target="#blockedUsersCanvas" style="display: none;">
+                        View Blocked Users
+                    </button>
+                    <button id="add_friend_btn" class="btn btn-bd-primary" style="display: none;">
+                        Friend request
+                    </button>
+                    <button id="accept_friend_btn" class="btn btn-bd-primary" style="display: none;">
+                        Pending Request
+                    </button>
+                    <button id="block_user_btn" class="btn btn-danger" style="display: none;">
+                        Block
+                    </button>
+                    <button id="unblock_user_btn" class="btn btn-success" style="display: none;">
+                        Unblock
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4 p-0">
+            <h4 id="victories_count">{{ profile_id.victories|default:"--" }}</h4>
+            <p>Victories</p>
+        </div>
+        <div class="col-md-4 p-0">
+            <h4 id="defeats_count">{{ profile_id.defeats|default:"--" }}</h4>
+            <p>Defeats</p>
+        </div>
+        <div class="col-md-4 p-0">
+            <h4 id="games_played_count">{{ profile_id.games_played|default:"--" }}</h4>
+            <p>Games played</p>
+        </div>
+    </div>
+
+    <div class="d-lg-none mt-2 text-center">
+        <button class="btn btn-bd-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHistorical" aria-controls="offcanvasHistorical">Show historical</button>
+    </div>
+
+    <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasHistorical" aria-labelledby="offcanvasResponsiveLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasHistorical" aria-label="Close"></button>
+        </div>
+        <div id="historical_wrapper" class="row offcanvas-body mt-2">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <h4 class="text-center">Match History</h4>
+                    <ul id="match_history_list" class="list-group scrollable-container m-0">
+                        {% for match in profile_id.matches %}
+                            <li class="list-group-item">
+                                {{ match.date }} - {{ match.opponent }} : {{ match.score }} ({{ match.result }})
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No game found.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="tournament_history_wrap" class="col-lg-6 col-sm-12">
+                    <h4 class="text-center">Tournament History</h4>
+                    <ul id="tournament_history_list" class="list-group scrollable-container m-0">
+                        {% for tournament in profile_id.tournaments %}
+                            <li class="list-group-item">
+                                {{ tournament.name }} - {{ tournament.date }}
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No tournament found.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-scroll="false" data-bs-backdrop="static" tabindex="-1" id="createRankingCanvas" aria-labelledby="rankingsCanvasLabel">
+    <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="createRankingCanvas">Ranking</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body">   
+        <div id="player_ranking" class="text-center fs-1 bg-light rounded mb-1 border border-dark"></div>
+        <ul id="ranking_list" class="list-group w-100">
+            
+        </ul>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-scroll="false" data-bs-backdrop="static" tabindex="-1" id="createFriendsCanvas" aria-labelledby="createFriendsCanvasLabel">
+    <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="createFriendsCanvas">Friends</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body">   
+        <ul id="friends_list" class="list-group w-100">
+            
+        </ul>
+    </div>
+</div>
+
+<div style="height: 75vh;" class="offcanvas offcanvas-top ms-3 me-3" data-bs-scroll="false" data-bs-backdrop="static" tabindex="-1" id="blockedUsersCanvas" aria-labelledby="blockedUsersModalLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="blockedUsersCanvas">Blocked Users</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="bg-secondary-subtle offcanvas-body">   
+        <ul id="blockedUsersList" class="list-group w-100">
+            
+        </ul>
+    </div>
+</div>

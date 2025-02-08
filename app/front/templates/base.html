@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8"/>
+        <link rel="icon" type="image/x-icon" href="/media/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Limbo{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+        <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'front/styles/styles.css' %}">
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/static/node_modules/three/build/three.module.js"
+                }
+            }
+        </script>
+        <script type="x-shader/x-vertex" id="vertexshader">
+
+            varying vec2 vUv;
+    
+            void main() {
+    
+                vUv = uv;
+    
+                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    
+            }
+    
+        </script>
+        <script type="x-shader/x-fragment" id="fragmentshader">
+    
+            uniform sampler2D baseTexture;
+            uniform sampler2D bloomTexture;
+    
+            varying vec2 vUv;
+    
+            void main() {
+    
+                gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+    
+            }
+    
+        </script>
+        <script type="module" src="{% static 'front/base.js' %}" defer></script>
+    </head>
+    <body>
+        <header id="header_content">
+           {% include 'navbar.html' %}
+        </header>
+        <div id="content">
+            {% block content %}{% endblock content %}
+        </div>
+        <footer id="footer_content">
+            {% include 'footer.html' %}
+        </footer>
+    </body>  
+</html>

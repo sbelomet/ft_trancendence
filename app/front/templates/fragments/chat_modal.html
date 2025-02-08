@@ -1,0 +1,67 @@
+{% load static %}
+
+<div class="bg-light offcanvas offcanvas-start shadow" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasChat" aria-labelledby="offcanvasScrollingLabel">
+	<div class="offcanvas-header pb-0 m-1 mb-0">
+		<ul class="nav nav-tabs" id="chatTabs" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="general-chat-tab" data-bs-toggle="tab" data-bs-target="#general-chat" type="button" role="tab" aria-controls="general-chat" aria-selected="true">General chat</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="direct-messages-tab" data-bs-toggle="tab" data-bs-target="#direct-messages" type="button" role="tab" aria-controls="direct-messages" aria-selected="false">Direct messages</button>
+			</li>
+		</ul>
+		<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-header justify-content-center p-2 m-1 mb-0">
+		<button id="notification-button" class="btn btn-primary position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#notificationSection" aria-expanded="false" aria-controls="notificationSection">
+			Notifications
+			<span id="notification-badge" class="position-absolute top-0 start-100 badge rounded-pill bg-danger" style="display: none; width: 15px; height: 15px; padding: 0; transform: translate(-60%, -30%);"></span>
+		</button>
+	</div>
+	<div class="collapse mx-1 px-3" id="notificationSection">
+		<ul id="notifications-list" class="list-group scrollable-container">
+			<!-- Notifications content will be loaded here -->
+			<p class="m-0 text-center">No new notifications</p>
+		</ul>
+	</div>
+	<div id="body-scroll" class="offcanvas-body d-flex flex-column pt-1">
+		<div class="tab-content flex-grow-1" id="chatTabsContent" style="height: 100%;">
+			<div class="tab-pane show active" id="general-chat" role="tabpanel" aria-labelledby="general-chat-tab" style="height: 100%;">
+				<div id="scroll-thing" class="card m-1 flex-grow-1 scrollable-container p-0" style="height: 100%; max-height: initial;">
+					<div id="chat-messages" class="card-body d-flex flex-column">
+						<!-- General chat messages will be loaded here -->
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="direct-messages" role="tabpanel" aria-labelledby="direct-messages-tab" style="height: 100%;">
+				<div id="scroll-thing-dm" class="card m-1 flex-grow-1 scrollable-container p-0" style="height: 100%; max-height: initial;">
+					<div class="card-header d-flex justify-content-between align-items-center sticky-top" style="background-color: #a3e7f5;">
+						<select id="friends-dropdown" class="form-select">
+							<option selected value="nan">Select a friend</option>
+							<!-- Friends will be populated here -->
+						</select>
+					</div>
+					<div id="dm-messages" class="card-body d-flex flex-column">
+						<!-- Direct messages will be loaded here -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="offcanvas-footer text-muted d-flex justify-content-start align-items-center p-3">
+		<div id="message-error" class="text-danger" style="display: none;">Message cannot exceed 200 characters.</div>
+		<input type="text" class="form-control form-control-lg m-1" id="chat-message-input" placeholder="Type message" autocomplete="off">
+		<button id="chat-message-submit" type="button" class="btn btn-info mx-1 py-2">Send</button>
+	</div>
+</div>
+
+<!-- Countdown Overlay -->
+<div id="countdown-overlay" class="d-none" style="background-color: rgba(0, 0, 0, 0.8); z-index: 1041;">
+	<h1 id="countdown-text" class="text-white mb-4">Your match is about to begin</h1>
+	<div id="countdown-timer" class="display-1 text-white pulsate">10</div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container-chat" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+    <!-- Toasts will be dynamically added here -->
+</div>

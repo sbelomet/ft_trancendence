@@ -1,0 +1,61 @@
+services:
+  redis:
+    build: ./redis
+    container_name: redis-chatapp
+    expose:
+      - 6380
+
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+    command: bash -c "gunicorn --reload hello_django.wsgi:application --bind 0.0.0.0:8000 & daphne hello_django.asgi:application -b 0.0.0.0 -p 9000"    
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+#      - ./app:/home/app/web
+    expose:
+      - 8000
+      - 9000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+      
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    ports:
+      - 3000:80
+      - 2000:443
+    depends_on:
+      - web
+
+  celery:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+    command: celery -A hello_django worker -B -l info
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - web
+      - redis
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

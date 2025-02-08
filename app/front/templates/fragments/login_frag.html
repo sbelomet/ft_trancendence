@@ -1,0 +1,25 @@
+{% load static %}
+<div class="pt-5 fill_div">
+    <div class="shadow container card border-secondary d-flex justify-content-center">
+        <div class="card-header bg-transparent">
+            <h2 class="text-center m-0">Login</h2>
+        </div>
+        <form id="login_form">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="form-group mb-2">
+                    <label for="input_username">Username</label>
+                    <input type="text" class="form-control" id="input_username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="input_password">Password</label>
+                    <input type="password" class="form-control" id="input_password" placeholder="Enter password" required>
+                </div>
+                <span class="ms-2 mb-2 d-none text-danger" id="username_error"></span>
+                <div class="d-flex justify-content-center mt-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
